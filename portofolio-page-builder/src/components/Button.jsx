@@ -1,4 +1,4 @@
-const Button = ({ title, isFilled, onClick }) => {
+const Button = ({ title, isFilled, children, onClick }) => {
   const type = {
     filled:
       "w-full h-full flex justify-center items-center cursor-pointer rounded-md bg-cyan-500 hover:bg-cyan-600",
@@ -11,6 +11,7 @@ const Button = ({ title, isFilled, onClick }) => {
       className={`${isFilled ? type.filled : type.unfilled}`}
       onClick={onClick}
     >
+      {children}
       <p className={`${isFilled ? "text-white" : "text-cyan-500"} font-medium`}>
         {title}
       </p>
