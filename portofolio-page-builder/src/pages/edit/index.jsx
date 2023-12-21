@@ -54,9 +54,7 @@ const EditPorto = () => {
         </div>
       </div>
       <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(!isModalOpen)}>
-        <form onSubmit={formikPorto.handleSubmit}>
-          <PortfolioForm formik={formikPorto} />
-        </form>
+        <PortfolioForm formik={formikPorto} />
       </Modal>
     </Layout>
   );
