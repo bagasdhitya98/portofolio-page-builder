@@ -1,10 +1,18 @@
-import React from "react";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+
+import Landing from "./pages/landing";
+import EditPorto from "./pages/edit";
+import ViewPorto from "./pages/view";
 
 const App = () => {
   return (
-    <section className="flex flex-col w-screen h-max justify-center items-center">
-      <div>App</div>
-    </section>
+    <BrowserRouter>
+      <Routes>
+        <Route element={<Landing />} path="/" />
+        <Route element={<EditPorto />} path="/builder/edit_portofolio" />
+        <Route element={<ViewPorto />} path="/builder/view_portofolio" />
+      </Routes>
+    </BrowserRouter>
   );
 };
 
