@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useFormik } from "formik";
+import Swal from "sweetalert2";
 
 import { validationPortofolio } from "../../utils/validation";
 import Layout from "../../components/Layout";
@@ -11,6 +12,7 @@ import images from "../../data/carousel.json";
 
 const AddPortfolio = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const name = localStorage.getItem("name");
 
   const formikPorto = useFormik({
     initialValues: {
@@ -31,6 +33,16 @@ const AddPortfolio = () => {
     },
   });
 
+  const handlePortfolio = () => {
+    !name
+      ? Swal.fire({
+          title: `You haven't filled out your profile yet`,
+          text: ` Please click the 'Create Your Profile' button."`,
+          confirmButtonText: "OK",
+        })
+      : setIsModalOpen(!isModalOpen);
+  };
+
   return (
     <Layout>
       <div className="flex h-full">
@@ -38,19 +50,24 @@ const AddPortfolio = () => {
       </div>
       <div className="flex flex-col items-center space-y-8 my-16">
         <p className="text-center text-xl font-semibold">
-          Create Your Portfolio
+          Create Your Amazing Experience
         </p>
         <p className="text-center">
           With just a click on the 'Add Portfolio' button, embark on the journey
           to build your professional portfolio. <br /> Showcase your
           achievements and creativity effortlessly and effectively.
         </p>
-        <div className="w-96 h-14">
-          <Button
-            isFilled={false}
-            title={"Add Portfolio"}
-            onClick={() => setIsModalOpen(!isModalOpen)}
-          />
+        <div className="flex gap-x-7">
+          <div className="w-96 h-14">
+            <Button
+              isFilled={false}
+              title={"Add Portfolio"}
+              onClick={() => handlePortfolio()}
+            />
+          </div>
+          <div className="w-96 h-14">
+            <Button isFilled={true} title={"Create Your Profile"} />
+          </div>
         </div>
       </div>
       <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(!isModalOpen)}>
