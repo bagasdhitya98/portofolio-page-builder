@@ -4,6 +4,7 @@ import axios from "axios";
 import Landing from "./pages/landing";
 import AddPortfolio from "./pages/add_portfolio";
 import ViewPortfolio from "./pages/view_portfolio";
+import CreateProfile from "./pages/create_profile";
 
 const App = () => {
   axios.defaults.baseURL =
@@ -15,6 +16,7 @@ const App = () => {
         <Route element={<Landing />} path="/" />
         <Route element={<AddPortfolio />} path="/builder/edit_portofolio" />
         <Route element={<ViewPortfolio />} path="/builder/view_portofolio" />
+        <Route element={<CreateProfile />} path="/builder/create_profile" />
       </Routes>
     </BrowserRouter>
   );

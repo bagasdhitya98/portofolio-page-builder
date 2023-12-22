@@ -12,7 +12,7 @@ export const validationPortofolio = Yup.object().shape({
   ),
 });
 
-export const validationUser = Yup.object().shape({
+export const validationProfile = Yup.object().shape({
   name: Yup.string().required("Name is required"),
   title: Yup.string().required("Title is required"),
   description: Yup.string().required("Description is required"),
