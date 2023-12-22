@@ -1,11 +1,20 @@
-import React from "react";
+import React, { useState } from "react";
 import { useFormik } from "formik";
-import { validationProfile } from "../../utils/validation";
-
-import Portfolio from "../../components/Portfolio";
+import { useNavigate } from "react-router-dom";
+import {
+  validationProfile,
+  validationPortofolio,
+} from "../../utils/validation";
+import axios from "axios";
+import Swal from "sweetalert2";
 import ProfileForm from "./ProfileForm";
+import PortfolioForm from "./PortfolioForm";
 
 const CreateProfile = () => {
+  const navigate = useNavigate();
+  const [nextStep, setNextStep] = useState(false);
+  const [userId, setUserId] = useState("");
+
   const formikProfile = useFormik({
     initialValues: {
       name: "",
@@ -15,21 +24,100 @@ const CreateProfile = () => {
       avatar_picture: "",
     },
     validationSchema: validationProfile,
-    onSubmit: (values) => {
+    onSubmit: async (values) => {
+      try {
+        const body = {
+          name: values.name,
+          title: values.title,
+          description: values.description,
+          cover_picture: values.cover_picture,
+          avatar_picture: values.avatar_picture,
+        };
+        const response = await axios.post("portofolio", {
+          name: body.name,
+          title: body.title,
+          description: body.description,
+          cover_picture: body.cover_picture,
+          avatar_picture: body.avatar_picture,
+        });
+        if (response.data) {
+          Swal.fire({
+            title: "Successfully Saved!",
+            text: "Your profile was successfully submitted",
+            icon: "success",
+            confirmButtonText: "OK",
+          }).then((res) => {
+            if (res.isConfirmed) {
+              localStorage.setItem("name", body.name);
+              setUserId(response.data.id);
+              setNextStep(true);
+            }
+          });
+        }
+      } catch (error) {
+        Swal.fire({
+          title: "Something went wrong",
+          text: "Please refresh your page",
+          icon: "error",
+          confirmButtonText: "OK",
+        });
+      }
+    },
+  });
+
+  const formikPorto = useFormik({
+    initialValues: {
+      list_portofolio: [
+        {
+          job_position: "",
+          company: "",
+          short_description: "",
+          start_date: "",
+          end_date: "",
+        },
+      ],
+    },
+    validationSchema: validationPortofolio,
+    onSubmit: async (values) => {
       console.log(values);
+      try {
+        const response = await axios.put(`portofolio/${userId}`, {
+          list_portofolio: values.list_portofolio,
+        });
+        if (response.data) {
+          Swal.fire({
+            title: "Successfully Saved!",
+            text: "Your portofolio was successfully added!",
+            icon: "success",
+            confirmButtonText: "OK",
+          }).then((res) => {
+            if (res.isConfirmed) {
+              navigate("/builder/edit_portofolio");
+            }
+          });
+        }
+      } catch (error) {
+        Swal.fire({
+          title: "Something went wrong",
+          text: "Please refresh your page",
+          icon: "error",
+          confirmButtonText: "OK",
+        });
+      }
     },
   });
 
   return (
-    <section className="flex justify-center items-center w-max h-full">
-      <div className="w-1/2 mx-40 absolute left-0 top-0">
-        <ProfileForm
-          onSubmit={formikProfile.handleSubmit}
-          formik={formikProfile}
-        />
-      </div>
-      <div className="absolute right-0 top-0">
-        <Portfolio />
+    <section className="flex justify-center items-center w-screen h-full">
+      <div className="w-full mx-40">
+        {nextStep ? (
+          <PortfolioForm formik={formikPorto} />
+        ) : (
+          <ProfileForm
+            onSubmit={formikProfile.handleSubmit}
+            formik={formikProfile}
+          />
+        )}
       </div>
     </section>
   );
