@@ -1,38 +1,13 @@
-import React, { useState } from "react";
-import { useFormik } from "formik";
 import { useNavigate } from "react-router-dom";
 
-import { validationPortofolio } from "../../utils/validation";
 import Layout from "../../components/Layout";
 import Button from "../../components/Button";
 import Carousel from "../../components/Carousel";
-import Modal from "../../components/Modal";
-import PortfolioForm from "./PortfolioForm";
 import images from "../../data/carousel.json";
 
 const AddPortfolio = () => {
   const navigate = useNavigate();
   const name = localStorage.getItem("name");
-  const [isModalOpen, setIsModalOpen] = useState(false);
-
-  const formikPorto = useFormik({
-    initialValues: {
-      list_portofolio: [
-        {
-          job_position: "",
-          company: "",
-          short_description: "",
-          start_date: "",
-          end_date: "",
-        },
-      ],
-    },
-    validationSchema: validationPortofolio,
-    onSubmit: async (values) => {
-      console.log(values);
-      setIsModalOpen(false);
-    },
-  });
 
   return (
     <Layout>
@@ -61,19 +36,21 @@ const AddPortfolio = () => {
               />
             </div>
           ) : (
-            <div className="w-96 h-14">
-              <Button
-                isFilled={false}
-                title={"Add Portfolio"}
-                onClick={() => setIsModalOpen(!isModalOpen)}
-              />
+            <div className="flex gap-x-8">
+              <div className="w-96 h-14">
+                <Button
+                  isFilled={true}
+                  title={"Create Your Profile"}
+                  onClick={() => navigate("/builder/create_profile")}
+                />
+              </div>
+              <div className="w-96 h-14">
+                <Button isFilled={false} title={"View List Portfolio"} />
+              </div>
             </div>
           )}
         </div>
       </div>
-      <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(!isModalOpen)}>
-        <PortfolioForm formik={formikPorto} />
-      </Modal>
     </Layout>
   );
 };
