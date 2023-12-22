@@ -22,13 +22,13 @@ const Carousel = ({ images }) => {
         style={{ transform: `translateX(-${currentIndex * 100}%)` }}
       >
         {images?.map((image, index) => (
-          <div key={index} className="flex-shrink-0 w-full relative">
+          <div key={index} className="flex-shrink-0 w-full h-screen relative">
             <img
               src={image}
               alt={`slide ${index + 1}`}
-              className="w-full h-full object-cover"
+              className="w-full h-full mx-auto rounded-md"
+              style={{ objectFit: "none", objectPosition: "center" }}
             />
-            <div className="absolute inset-0 bg-black opacity-40"></div>
           </div>
         ))}
       </div>
