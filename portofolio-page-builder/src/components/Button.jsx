@@ -1,9 +1,9 @@
 const Button = ({ title, isFilled, children, onClick, buttonType }) => {
   const type = {
     filled:
-      "w-full h-full flex justify-center items-center cursor-pointer rounded-md bg-cyan-500 hover:bg-cyan-600",
+      "w-full h-full flex justify-center items-center cursor-pointer rounded-md bg-cyan-500 hover:bg-cyan-600 border-none focus:outline-none",
     unfilled:
-      "w-full h-full flex justify-center items-center cursor-pointer rounded-md bg-white border border-cyan-500",
+      "w-full h-full flex justify-center items-center cursor-pointer rounded-md bg-white border border-cyan-500 focus:outline-none",
   };
 
   return (
