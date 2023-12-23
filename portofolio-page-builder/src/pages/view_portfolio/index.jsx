@@ -89,7 +89,7 @@ const ViewPortfolio = () => {
           cover_picture: values.cover_picture,
           avatar_picture: values.avatar_picture,
         };
-        const response = await axios.post("portofolio", {
+        const response = await axios.put("portofolio", {
           name: body.name,
           title: body.title,
           description: body.description,
@@ -163,6 +163,14 @@ const ViewPortfolio = () => {
     },
   });
 
+  const viewDetail = (id) => {
+    navigate(`/builder/detail/${id}`, {
+      state: {
+        user_id: id,
+      },
+    });
+  };
+
   useEffect(() => {
     getAllPortfolio();
   }, []);
@@ -209,7 +217,10 @@ const ViewPortfolio = () => {
                         >
                           Delete
                         </button>
-                        <button className="w-40 bg-blue-500 text-white mx-10 mt-5">
+                        <button
+                          className="w-40 bg-blue-500 text-white mx-10 mt-5"
+                          onClick={() => viewDetail(item?.id)}
+                        >
                           View Detail
                         </button>
                       </div>

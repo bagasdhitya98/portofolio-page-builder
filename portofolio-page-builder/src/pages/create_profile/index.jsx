@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useFormik } from "formik";
 import { useNavigate } from "react-router-dom";
 import {
@@ -106,6 +106,17 @@ const CreateProfile = () => {
       }
     },
   });
+
+  useEffect(() => {
+    if (!nextStep) {
+      Swal.fire({
+        title: "Warning!",
+        text: "Make sure your cover and avatar picture have size less than 38kB before continue",
+        icon: "warning",
+        confirmButtonText: "OK",
+      });
+    }
+  }, []);
 
   return (
     <section className="flex justify-center items-center w-screen h-full">
