@@ -45,7 +45,11 @@ const AddPortfolio = () => {
                 />
               </div>
               <div className="w-96 h-14">
-                <Button isFilled={false} title={"View List Portfolio"} />
+                <Button
+                  isFilled={false}
+                  title={"View List Portfolio"}
+                  onClick={() => navigate("/builder/view_portofolio")}
+                />
               </div>
             </div>
           )}

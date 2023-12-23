@@ -9,7 +9,7 @@ const Modal = ({ isOpen, onClose, children }) => {
     <>
       {isOpen && (
         <div
-          className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 flex items-center justify-center"
+          className="fixed z-20 top-0 left-0 w-full h-full bg-black bg-opacity-50 flex items-center justify-center"
           onClick={handleBackgroundClick}
         >
           <div className="bg-white p-4 rounded-md shadow-md">{children}</div>
